@@ -111,4 +111,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 💡 Contributions
 
-Feel free to fork and enhance this script! PRs are welcome.
+No Thanks!
