@@ -1,15 +1,23 @@
 # 🔹 HLS Video Downloader Script
 
-This script allows you to **download and decrypt HLS (.m3u8) video streams** by processing `.m3u8` playlist URLs. It handles encrypted streams, downloads video segments, and merges them into MP4 files using FFmpeg.
+This Python script provides a convenient way to download videos from `.m3u8` HLS stream URLs. It supports:
+
+- **Single video downloads** via URL input or clipboard.
+- **Batch downloads** using two text files (`m3u8_urls.txt` and `video_names.txt`).
+- Automatic key downloading and playlist rewriting for encrypted streams.
+- Merging video segments into a single `.mp4` using `ffmpeg`.
+- Organizing all completed downloads into a centralized folder.
 
 ---
 
 ## 📦 Features
 
-- Batch download from multiple `.m3u8` URLs
-- Auto-download and inject encryption keys (if present)
-- Merge segments into `.mp4` using FFmpeg
-- Auto-numbered folders (`video_1`, `video_2`, etc.) — avoids overwriting
+- ✅ Batch and single download support
+- ✅ Clipboard URL detection (auto-paste)
+- ✅ Encrypted `.m3u8` support
+- ✅ Download progress bar with `tqdm`
+- ✅ Automatically moves final videos into "All Downloaded Videos" (optional)
+- ✅ UTF-8 console encoding for multilingual support (e.g. Chinese)
 
 ---
 
@@ -36,10 +44,26 @@ Check FFmpeg installation:
 ```bash
 ffmpeg -version
 ```
+### 4.tqdm
+```bash
+pip install requests tqdm 
+```
+### 5.pyperclip
+```bash
+pip install requests pyperclip
+```
 
 ---
 
 ## 📂 File Setup
+
+project_folder/
+│
+├── downloader.py            # Main script
+├── m3u8_urls.txt            # List of .m3u8 URLs (one per line)
+├── video_names.txt          # Corresponding video names (one per line)
+├── All Downloaded Videos/   # (Created automatically)
+└── README.md
 
 ### 1. `m3u8_urls.txt`
 - Create this file in the same directory as the script.
@@ -51,6 +75,15 @@ https://example.com/video2.m3u8?auth_key=xyz456
 
 ### 2. Python Script
 - The script will read URLs, download segments and keys (if any), and convert them into `.mp4`.
+
+### 3. `video_names.txt`
+- Create this file in the same directory as the script.
+- Add one `video name` URL per line:
+```
+crazyfox
+appleorange
+yellowblue
+```
 
 ---
 
@@ -72,12 +105,44 @@ python your_script.py
 
 ## 🧠 How It Works
 
-- **Reads** all URLs from `m3u8_urls.txt`
-- **Downloads** and rewrites playlists to use local key paths
-- **Decrypts** using `key.key` if needed
-- **Combines** `.ts` segments into a final `.mp4` using FFmpeg
+- Reads all URLs from m3u8_urls.txt
+- Downloads and rewrites playlists to use local key paths
+- Decrypts using key.key if needed
+- Combines .ts segments into a final .mp4 using FFmpeg
+- Handles both single and batch download modes
+- Automatically prompts for URL if clipboard is empty or invalid
+- Validates matching line count between URL and name files before processing
+- Moves all finished videos to a central directory if user agrees
+
 
 ---
+
+You will see:
+
+```
+=== HLS Downloader ===
+1. Batch Download (from m3u8_urls.txt and video_names.txt)
+2. Single Video Download
+0. Exit
+```
+
+### 🧩 Batch Download Mode
+
+Prepare the following files in the same directory:
+
+- `m3u8_urls.txt` – list of `.m3u8` links
+- `video_names.txt` – desired output folder/video names (matching line count)
+
+Then run the script and choose **option 1**.
+
+### 📥 Single Download Mode
+
+Choose **option 2**, then either:
+
+- Let it auto-read from clipboard
+- Paste a `.m3u8` URL manually
+- Provide a name for the folder/video
+
 
 ## ❓ How to Get `.m3u8` Links
 
