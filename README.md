@@ -44,11 +44,11 @@ Check FFmpeg installation:
 ```bash
 ffmpeg -version
 ```
-### 4.tqdm
+### 4. tqdm
 ```bash
 pip install requests tqdm 
 ```
-### 5.pyperclip
+### 5. pyperclip
 ```bash
 pip install requests pyperclip
 ```
