@@ -21,6 +21,12 @@ This Python script provides a convenient way to download videos from `.m3u8` HLS
 
 ---
 
+📥 Clone This Repository
+```bash
+git clone https://github.com/NoIdea00/HLS-Downloader.git
+cd HLS-Downloader
+```
+
 ## 🛠 Prerequisites
 
 ### 1. Python 3.x
